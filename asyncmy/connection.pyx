@@ -570,8 +570,8 @@ class Connection:
                 self._set_nodelay(True)
             self._next_seq_id = 0
 
-            await self._get_server_information()
-            await self._request_authentication()
+            await asyncio.wait_for(self._get_server_information(), timeout=self._connect_timeout)
+            await asyncio.wait_for(self._request_authentication(), timeout=self._connect_timeout)
 
             self._connected = True
 
